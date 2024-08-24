@@ -49,7 +49,6 @@ describe("TransferUSDC", function () {
     estimatedFee = await ccipRouterContract.getFee(sepoliaChainSelector, message);
     const increasedGasLimit = Math.ceil(estimatedFee * 1.1); // Increase gas by 10%
 
-
     const usdcIERC20Contract = await ethers.getContractAt("IERC20", usdcToken);
     const balance = await usdcIERC20Contract.balanceOf(receiver);
 
@@ -58,13 +57,12 @@ describe("TransferUSDC", function () {
 
     new Promise(resolve => setTimeout(resolve, 5000));
 
-    const res = await transferUSDC.transferUsdc(
+    await transferUSDC.transferUsdc(
       sepoliaChainSelector,
       receiver,
       amount,
       increasedGasLimit
     );
-    console.log(res)
     expect(await usdcIERC20Contract.balanceOf(receiver)).to.equal(amount);
   });
 });
